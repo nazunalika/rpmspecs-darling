@@ -110,6 +110,7 @@ pushd build
   %make_install
   make %{?_smp_mflags} lkm_generate
   %{__install} -d -m 755 ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/miggen
+  %{__install} -d -m 755 ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/lkm/darling
 
   cp -dr src/lkm/osfmk \
     ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/miggen/osfmk
@@ -147,6 +148,6 @@ fi
 %{_usrsrc}/%{name}-mach-%{version}
 
 %changelog
-* Mon Aug 12 2019 Louis Abel <tucklesepk@gmail.com> - 0-20190812gitf7b8ad3
+* Mon Aug 13 2019 Louis Abel <tucklesepk@gmail.com> - 0-20190812gitf7b8ad3
 - Initial version following the RPM packaging guidelines
 
