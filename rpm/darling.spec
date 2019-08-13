@@ -104,7 +104,7 @@ popd
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd %{name}-${releaseVer}
+cd %{name}-%{releaseVer}
 
 pushd build
   %make_install
