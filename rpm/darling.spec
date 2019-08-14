@@ -148,6 +148,6 @@ fi
 %{_usrsrc}/%{name}-mach-%{version}
 
 %changelog
-* Mon Aug 13 2019 Louis Abel <tucklesepk@gmail.com> - 0-20190812gitf7b8ad3
+* Tue Aug 13 2019 Louis Abel <tucklesepk@gmail.com> - 0-20190812gitf7b8ad3
 - Initial version following the RPM packaging guidelines
 
