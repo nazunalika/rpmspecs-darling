@@ -139,7 +139,7 @@ fi
 
 %files
 %defattr(-, root, root, -)
-%doc LICENSE
+#%doc LICENSE
 %{_bindir}/darling
 %{_libexecdir}/darling
 
