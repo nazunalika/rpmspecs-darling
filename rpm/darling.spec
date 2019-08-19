@@ -6,7 +6,7 @@
 %global __os_install_post %{nil}
 
 # They don't do releases yet. Remove when we move to releases.
-%global commit f7b8ad342edb1e592486dea80f1f4fdf2fbd7fdc
+%global commit c64519b5e74e1838b5837e1404e59da09b78fe6a
 %global gittag refs/heads/master
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %define gitURL https://github.com/darlinghq/darling
@@ -14,7 +14,7 @@
 # When there's no release, the proper way to version anything out is via
 # the commit date and version and leaving the package version as 0.
 # See: https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_snapshots
-%global releaseVer 20190812git%{shortcommit}
+%global releaseVer 20190816git%{shortcommit}
 
 Name:		darling
 Version:	0
@@ -78,6 +78,8 @@ experience by making them look, feel, and behave just like native Linux apps.
 
 %package	mach
 Summary:	Kernel Module for Darling
+Requires:	kernel-devel
+Requires:	dkms
 
 %description	mach
 Linux kernel module for darling-mach, required to use darling.
@@ -148,6 +150,9 @@ fi
 %{_usrsrc}/%{name}-mach-%{version}
 
 %changelog
+* Fri Aug 16 2019 Louis Abel <tucklesepk@gmail.com> - 0-20190816gitc64519b
+- Update to commit c64519
+
 * Tue Aug 13 2019 Louis Abel <tucklesepk@gmail.com> - 0-20190812gitf7b8ad3
 - Initial version following the RPM packaging guidelines
 
