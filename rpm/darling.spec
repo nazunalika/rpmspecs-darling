@@ -15,10 +15,11 @@
 # the commit date and version and leaving the package version as 0.
 # See: https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_snapshots
 %global releaseVer 20190816git%{shortcommit}
+%global darling_version 0.2019.12
 
 Name:		darling
-Version:	0
-Release:	%{releaseVer}%{?dist}
+Version:	%{darling_version}
+Release:	1
 Summary:	macOS translation layer for Linux
 
 License:	GPLv3
@@ -26,6 +27,7 @@ URL:		https://www.darlinghq.org
 
 # Change on true release
 #Source0:	https://github.com/darlinghq/darling/...
+Source0:	https://github.com/darlinghq/darling/archive/v%{darling_version}.tar.gz
 Source1:	darling-dkms.conf
 
 BuildRequires:	git
@@ -85,16 +87,9 @@ Requires:	dkms
 Linux kernel module for darling-mach, required to use darling.
 
 %prep
-# Remove and replace with setup after releases
-rm -rf %{name}-%{commit} %{name}
-git clone --recurse-submodules %{gitURL} %{name}-%{releaseVer}
-# End
+%setup -q -n %{name}-%{version}
 
 %build
-# Remove after releases
-cd %{name}-%{releaseVer}
-# End
-
 # Following the methodology of their build page
 %{__mkdir} build
 pushd build
@@ -106,7 +101,7 @@ popd
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd %{name}-%{releaseVer}
+cd %{name}-%{version}
 
 pushd build
   %make_install
@@ -150,6 +145,9 @@ fi
 %{_usrsrc}/%{name}-mach-%{version}
 
 %changelog
+* Thu Jan 02 2019 Louis Abel <tucklesepk@gmail.com> - 0.2019.12-1
+- Update to alpha release 0.2019.12
+
 * Fri Aug 16 2019 Louis Abel <tucklesepk@gmail.com> - 0-20190816gitc64519b
 - Update to commit c64519
 
