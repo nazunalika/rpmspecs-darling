@@ -4,18 +4,7 @@
 
 # Preventing binary stripping, weird things happen when it's not stripped
 %global __os_install_post %{nil}
-
-# They don't do releases yet. Remove when we move to releases.
-%global commit c64519b5e74e1838b5837e1404e59da09b78fe6a
-%global gittag refs/heads/master
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%define gitURL https://github.com/darlinghq/darling
-
-# When there's no release, the proper way to version anything out is via
-# the commit date and version and leaving the package version as 0.
-# See: https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/#_snapshots
-%global releaseVer 20190816git%{shortcommit}
-%global darling_version 0.2019.12
+%global darling_version 0.1.20200120
 
 Name:		darling
 Version:	%{darling_version}
@@ -26,7 +15,6 @@ License:	GPLv3
 URL:		https://www.darlinghq.org
 
 # Change on true release
-#Source0:	https://github.com/darlinghq/darling/...
 Source0:	https://github.com/darlinghq/darling/archive/v%{darling_version}.tar.gz
 Source1:	darling-dkms.conf
 
@@ -104,8 +92,8 @@ rm -rf $RPM_BUILD_ROOT
 cd %{name}-%{version}
 
 pushd build
-  %make_install
-  make %{?_smp_mflags} lkm_generate
+  %{make_install}
+  %{make_build} lkm_generate
   %{__install} -d -m 755 ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/miggen
   %{__install} -d -m 755 ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/lkm/darling
 
@@ -145,8 +133,8 @@ fi
 %{_usrsrc}/%{name}-mach-%{version}
 
 %changelog
-* Thu Jan 02 2019 Louis Abel <tucklesepk@gmail.com> - 0.2019.12-1
-- Update to alpha release 0.2019.12
+* Fri Jan 24 2020 Louis Abel <tucklesepk@gmail.com> - 0.1.20200120-1
+- Update to alpha release 0.1.20200120
 
 * Fri Aug 16 2019 Louis Abel <tucklesepk@gmail.com> - 0-20190816gitc64519b
 - Update to commit c64519
