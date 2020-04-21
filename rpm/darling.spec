@@ -4,7 +4,7 @@
 
 # Preventing binary stripping, weird things happen when it's not stripped
 %global __os_install_post %{nil}
-%global darling_version 0.1.20200120
+%global darling_version 0.1.20200331
 
 Name:		darling
 Version:	%{darling_version}
@@ -79,6 +79,8 @@ Linux kernel module for darling-mach, required to use darling.
 
 %build
 # Following the methodology of their build page
+#   Use the below when releases work
+#   -DOpenGL_GL_PREFERENCE=GLVND \
 %{__mkdir} build
 pushd build
   %{__cmake} -DCMAKE_INSTALL_PREFIX=%{_prefix} \
@@ -133,6 +135,9 @@ fi
 %{_usrsrc}/%{name}-mach-%{version}
 
 %changelog
+* Tue Apr 21 2020 Louis Abel <tucklesepk@gmail.com> - 0.1.20200331-1
+- Update to alpha release 0.1.20200331
+
 * Fri Jan 24 2020 Louis Abel <tucklesepk@gmail.com> - 0.1.20200120-1
 - Update to alpha release 0.1.20200120
 
