@@ -5,6 +5,7 @@
 # Preventing binary stripping, weird things happen when it's not stripped
 %global __os_install_post %{nil}
 %global darling_version 0.1.20210224
+%global commit 658771f0d17b698bd31f2e3db5a2b155ea17176f
 
 Name:		darling
 Version:	%{darling_version}
@@ -15,7 +16,7 @@ License:	GPLv3
 URL:		https://www.darlinghq.org
 
 # Change on true release
-Source0:	https://github.com/darlinghq/darling/archive/v%{darling_version}.tar.gz
+#Source0:	https://github.com/darlinghq/darling/archive/v%{darling_version}.tar.gz
 Source1:	darling-dkms.conf
 
 BuildRequires:	git
@@ -76,9 +77,15 @@ AutoReqProv:	no
 Linux kernel module for darling-mach, required to use darling.
 
 %prep
-%setup -q -n %{name}-%{version}
+#%setup -q -n %{name}-%{version}
+rm -rf %{name}-%{version} %{name} %{name}-%{commit}
+git clone --recursive \
+  https://github.com/darlinghq/darling.git %{name}-%{version}
+
 
 %build
+cd %{name}-%{version}
+git checkout %{commit}
 # Following the methodology of their build page
 #   Use the below when releases work
 #   -DOpenGL_GL_PREFERENCE=GLVND \
@@ -138,6 +145,7 @@ fi
 %changelog
 * Fri May 22 2021 Louis Abel <tucklesepk@gmail.com> - 0.1.20210224-1
 - Update to alpha release 0.1.20210224
+- Use commit rather than release tar
 
 * Tue Apr 21 2020 Louis Abel <tucklesepk@gmail.com> - 0.1.20200331-1
 - Update to alpha release 0.1.20200331
