@@ -4,7 +4,7 @@
 
 # Preventing binary stripping, weird things happen when it's not stripped
 %global __os_install_post %{nil}
-%global darling_version 0.1.20200331
+%global darling_version 0.1.20210224
 
 Name:		darling
 Version:	%{darling_version}
@@ -70,6 +70,7 @@ experience by making them look, feel, and behave just like native Linux apps.
 Summary:	Kernel Module for Darling
 Requires:	kernel-devel
 Requires:	dkms
+AutoReqProv:	no
 
 %description	mach
 Linux kernel module for darling-mach, required to use darling.
@@ -135,6 +136,9 @@ fi
 %{_usrsrc}/%{name}-mach-%{version}
 
 %changelog
+* Fri May 22 2021 Louis Abel <tucklesepk@gmail.com> - 0.1.20210224-1
+- Update to alpha release 0.1.20210224
+
 * Tue Apr 21 2020 Louis Abel <tucklesepk@gmail.com> - 0.1.20200331-1
 - Update to alpha release 0.1.20200331
 
