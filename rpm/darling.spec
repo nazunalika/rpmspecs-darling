@@ -51,6 +51,10 @@ BuildRequires:	libjpeg-turbo-devel(x86-32)
 BuildRequires:	libtiff-devel(x86-64)
 BuildRequires:	libtiff-devel(x86-32)
 
+# rpmfusion dependencies
+BuildRequires:	ffmpeg-devel(x86-64)
+BuildRequires:	ffmpeg-devel(x86-32)
+
 AutoReqProv:	no
 
 %description
@@ -145,7 +149,7 @@ fi
 %{_usrsrc}/%{name}-mach-%{version}
 
 %changelog
-* Fri May 22 2021 Louis Abel <tucklesepk@gmail.com> - 0.1.20210224-1
+* Fri May 21 2021 Louis Abel <tucklesepk@gmail.com> - 0.1.20210224-1
 - Update to alpha release 0.1.20210224
 - Use commit rather than release tar
 
