@@ -21,22 +21,34 @@ Source1:	darling-dkms.conf
 
 BuildRequires:	git
 BuildRequires:	dkms
-BuildRequires:	make
 BuildRequires:	flex
-BuildRequires:	cmake
-BuildRequires:	clang
+BuildRequires:	llvm
+BuildRequires:	make
 BuildRequires:	bison
+BuildRequires:	clang
+BuildRequires:	cmake
 BuildRequires:	python2
-BuildRequires:	systemd-devel
 BuildRequires:	kernel-devel
-BuildRequires:	libglvnd-devel
+BuildRequires:	giflib-devel
+BuildRequires:	openssl-devel
+BuildRequires:	systemd-devel
+
+BuildRequires:	libxkbfile-devel
+BuildRequires:	mesa-libEGL-devel
 
 BuildRequires:	pkgconfig(gl)
+BuildRequires:	pkgconfig(dri)
 BuildRequires:	pkgconfig(egl)
+BuildRequires:	pkgconfig(glu)
 BuildRequires:	pkgconfig(fuse)
 BuildRequires:	pkgconfig(cairo)
+BuildRequires:	pkgconfig(dbus-1)
 BuildRequires:	pkgconfig(libbsd)
 BuildRequires:	pkgconfig(libelf)
+BuildRequires:	pkgconfig(xrandr)
+BuildRequires:	pkgconfig(xcursor)
+BuildRequires:	pkgconfig(xkbfile)
+BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(libxml-2.0)
 
 # Multiarch dependencies
@@ -52,8 +64,7 @@ BuildRequires:	libtiff-devel(x86-64)
 BuildRequires:	libtiff-devel(x86-32)
 
 # rpmfusion dependencies
-BuildRequires:	ffmpeg-devel(x86-64)
-BuildRequires:	ffmpeg-devel(x86-32)
+BuildRequires:	ffmpeg-devel
 
 AutoReqProv:	no
 
