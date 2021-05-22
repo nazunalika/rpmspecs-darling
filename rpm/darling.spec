@@ -79,13 +79,15 @@ Linux kernel module for darling-mach, required to use darling.
 %prep
 #%setup -q -n %{name}-%{version}
 rm -rf %{name}-%{version} %{name} %{name}-%{commit}
-git clone --recursive \
+git clone \
   https://github.com/darlinghq/darling.git %{name}-%{version}
 
 
 %build
 cd %{name}-%{version}
 git checkout %{commit}
+git submodule init
+git submodule update --init --recursive
 # Following the methodology of their build page
 #   Use the below when releases work
 #   -DOpenGL_GL_PREFERENCE=GLVND \
