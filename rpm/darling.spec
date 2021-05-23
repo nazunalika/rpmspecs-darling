@@ -124,7 +124,10 @@ pushd build
   %{__install} -d -m 755 ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/miggen
   %{__install} -d -m 755 ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/lkm/darling
 
-  cp -dr src/lkm/osfmk \
+  cp -dr src/external/lkm \
+    ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/lkm
+
+  cp -dr src/external/lkm/osfmk \
     ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/miggen/osfmk
 
   cp src/startup/rtsig.h \
@@ -133,7 +136,7 @@ popd
 
 %{__install} -m 644 %{SOURCE1} %{?buildroot}%{_usrsrc}/%{name}-mach-%{version}/dkms.conf
 
-cp -dr src/lkm \
+cp -dr src/external/lkm \
   ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/lkm
 
 %preun mach
