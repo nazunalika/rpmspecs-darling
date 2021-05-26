@@ -9,7 +9,7 @@
 
 Name:		darling
 Version:	%{darling_version}
-Release:	1
+Release:	2
 Summary:	macOS translation layer for Linux
 
 License:	GPLv3
@@ -121,34 +121,35 @@ cd %{name}-%{version}
 pushd build
   %{make_install}
   %{make_build} lkm_generate
-  %{__install} -d -m 755 ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/miggen
-  %{__install} -d -m 755 ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/lkm/darling
-
-  cp -dr src/external/lkm \
-    ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/lkm
-
-  cp -dr src/external/lkm/osfmk \
-    ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/miggen/osfmk
-
-  cp src/startup/rtsig.h \
-    ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/lkm/darling/
 popd
 
-%{__install} -m 644 %{SOURCE1} %{?buildroot}%{_usrsrc}/%{name}-mach-%{version}/dkms.conf
+%{__install} -d -m 755 ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/miggen
 
 cp -dr src/external/lkm \
   ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/lkm
 
-%preun mach
-%{_sbin}/dkms remove -m %{name}-mach -v %{version} --all || :
+cp -dr build/src/external/lkm/osfmk \
+  /${RPM_BUILD_ROOT}%{_usrsrc}%{name}-mach-%{version}/miggen/osfmk
 
-%post mach
-numbersOf=$(%{_sbin}/dkms status | grep "%{name}" | grep "%{version}" | wc -l)
+cp build/src/startup/rtsig.h \
+  ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/lkm/darling/
 
-if [ ! ${numbersOf} -gt 0 ]; then
-  %{_sbin}/dkms add -m %{name}-mach -v %{version} || :
+sed 's|@@PACKAGE_VERSION@@|%{version}|' %{SOURCE1} > dkms.conf
+
+%{__install} -m 644 dkms.conf \
+  ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/dkms.conf
+
+%pre mach
+numbersOf=$(%{_sbin}/dkms status "%{name}/%{version}" | wc -l)
+if [ ! ${numbersOf} -gt 0]; then
+  %{_sbin}/dkms remove -m %{name}-mach -v %{version} --all --rpm_safe_upgrade || :
 fi
 
+%preun mach
+%{_sbin}/dkms remove -m %{name}-mach -v %{version} --all --rpm_safe_upgrade || :
+
+%post mach
+%{_sbin}/dkms add -m %{name}-mach -v %{version} --rpm_safe_upgrade || :
 %{_sbin}/dkms build -m %{name}-mach -v %{version} || :
 %{_sbin}/dkms install -m %{name}-mach -v %{version} || :
 
@@ -163,7 +164,7 @@ fi
 %{_usrsrc}/%{name}-mach-%{version}
 
 %changelog
-* Fri May 21 2021 Louis Abel <tucklesepk@gmail.com> - 0.1.20210224-1
+* Fri May 21 2021 Louis Abel <tucklesepk@gmail.com> - 0.1.20210224-2
 - Update to alpha release 0.1.20210224
 - Use commit rather than release tar
 
