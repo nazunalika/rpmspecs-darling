@@ -129,7 +129,7 @@ cp -dr src/external/lkm \
   ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/lkm
 
 cp -dr build/src/external/lkm/osfmk \
-  /${RPM_BUILD_ROOT}%{_usrsrc}%{name}-mach-%{version}/miggen/osfmk
+  ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/miggen/osfmk
 
 cp build/src/startup/rtsig.h \
   ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/lkm/darling/
