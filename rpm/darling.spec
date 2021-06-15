@@ -9,7 +9,7 @@
 
 Name:		darling
 Version:	%{darling_version}
-Release:	2
+Release:	3
 Summary:	macOS translation layer for Linux
 
 License:	GPLv3
@@ -140,18 +140,18 @@ sed 's|@@PACKAGE_VERSION@@|%{version}|' %{SOURCE1} > dkms.conf
   ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/dkms.conf
 
 %pre mach
-numbersOf=$(%{_sbin}/dkms status "%{name}/%{version}" | wc -l)
-if [ ! ${numbersOf} -gt 0]; then
-  %{_sbin}/dkms remove -m %{name}-mach -v %{version} --all --rpm_safe_upgrade || :
+numbersOf=$(%{_sbindir}/dkms status "%{name}/%{version}" | wc -l)
+if [ ! ${numbersOf} -gt 0 ]; then
+  %{_sbindir}/dkms remove -m %{name}-mach -v %{version} --all --rpm_safe_upgrade || :
 fi
 
 %preun mach
-%{_sbin}/dkms remove -m %{name}-mach -v %{version} --all --rpm_safe_upgrade || :
+%{_sbindir}/dkms remove -m %{name}-mach -v %{version} --all --rpm_safe_upgrade || :
 
 %post mach
-%{_sbin}/dkms add -m %{name}-mach -v %{version} --rpm_safe_upgrade || :
-%{_sbin}/dkms build -m %{name}-mach -v %{version} || :
-%{_sbin}/dkms install -m %{name}-mach -v %{version} || :
+%{_sbindir}/dkms add -m %{name}-mach -v %{version} --rpm_safe_upgrade || :
+%{_sbindir}/dkms build -m %{name}-mach -v %{version} || :
+%{_sbindir}/dkms install -m %{name}-mach -v %{version} || :
 
 %files
 %defattr(-, root, root, -)
@@ -164,9 +164,10 @@ fi
 %{_usrsrc}/%{name}-mach-%{version}
 
 %changelog
-* Fri May 21 2021 Louis Abel <tucklesepk@gmail.com> - 0.1.20210224-2
+* Mon Jun 14 2021 Louis Abel <tucklesepk@gmail.com> - 0.1.20210224-3
 - Update to alpha release 0.1.20210224
 - Use commit rather than release tar
+- Fix macros
 
 * Tue Apr 21 2020 Louis Abel <tucklesepk@gmail.com> - 0.1.20200331-1
 - Update to alpha release 0.1.20200331
