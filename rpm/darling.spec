@@ -4,8 +4,8 @@
 
 # Preventing binary stripping, weird things happen when it's not stripped
 %global __os_install_post %{nil}
-%global darling_version 0.1.20210224
-%global commit 658771f0d17b698bd31f2e3db5a2b155ea17176f
+%global darling_version 0.1.20210801
+%global commit 9393db2c6ed530acaa2a4a933c391f1363fea1e8
 
 Name:		darling
 Version:	%{darling_version}
@@ -164,6 +164,9 @@ fi
 %{_usrsrc}/%{name}-mach-%{version}
 
 %changelog
+* Mon Oct 25 2021 Louis Abel <tucklesepk@gmail.com> - 0.1.20210801-3
+- Update to release 0.1.20210801
+
 * Mon Jun 14 2021 Louis Abel <tucklesepk@gmail.com> - 0.1.20210224-3
 - Update to alpha release 0.1.20210224
 - Use commit rather than release tar
