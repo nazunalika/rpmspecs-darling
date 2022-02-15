@@ -5,7 +5,7 @@
 # Preventing binary stripping, weird things happen when it's not stripped
 %global __os_install_post %{nil}
 %global darling_version 0.1.20220213
-%global commit 9393db2c6ed530acaa2a4a933c391f1363fea1e8
+%global commit 597325bc702e7b0893ade8272000a4086b23f121
 
 Name:		darling
 Version:	%{darling_version}
@@ -92,9 +92,16 @@ AutoReqProv:	no
 Linux kernel module for darling-mach, required to use darling.
 
 %prep
-%setup -q -n %{name}-%{version}
+#%setup -q -n %{name}-%{version}
+rm -rf %{name}-%{version} %{name} %{name}-%{commit}
+git clone \
+  https://github.com/darlinghq/darling.git %{name}-%{version}
 
 %build
+cd %{name}-%{version}
+git checkout v%{version}
+git submodule init
+git submodule update --init --recursive
 %{__mkdir} build
 pushd build
   %{__cmake} -DCMAKE_INSTALL_PREFIX=%{_prefix} \
@@ -105,6 +112,7 @@ popd
 
 %install
 rm -rf $RPM_BUILD_ROOT
+cd %{name}-%{version}
 
 pushd build
   %{make_install}
