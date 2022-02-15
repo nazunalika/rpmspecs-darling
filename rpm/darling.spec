@@ -4,19 +4,19 @@
 
 # Preventing binary stripping, weird things happen when it's not stripped
 %global __os_install_post %{nil}
-%global darling_version 0.1.20210801
+%global darling_version 0.1.20220213
 %global commit 9393db2c6ed530acaa2a4a933c391f1363fea1e8
 
 Name:		darling
 Version:	%{darling_version}
-Release:	3
+Release:	1
 Summary:	macOS translation layer for Linux
 
 License:	GPLv3
 URL:		https://www.darlinghq.org
 
 # Change on true release
-#Source0:	https://github.com/darlinghq/darling/archive/v%{darling_version}.tar.gz
+Source0:	https://github.com/darlinghq/darling/archive/v%{darling_version}.tar.gz
 Source1:	darling-dkms.conf
 
 BuildRequires:	git
@@ -92,20 +92,9 @@ AutoReqProv:	no
 Linux kernel module for darling-mach, required to use darling.
 
 %prep
-#%setup -q -n %{name}-%{version}
-rm -rf %{name}-%{version} %{name} %{name}-%{commit}
-git clone \
-  https://github.com/darlinghq/darling.git %{name}-%{version}
-
+%setup -q -n %{name}-%{version}
 
 %build
-cd %{name}-%{version}
-git checkout %{commit}
-git submodule init
-git submodule update --init --recursive
-# Following the methodology of their build page
-#   Use the below when releases work
-#   -DOpenGL_GL_PREFERENCE=GLVND \
 %{__mkdir} build
 pushd build
   %{__cmake} -DCMAKE_INSTALL_PREFIX=%{_prefix} \
@@ -116,7 +105,6 @@ popd
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd %{name}-%{version}
 
 pushd build
   %{make_install}
@@ -164,6 +152,9 @@ fi
 %{_usrsrc}/%{name}-mach-%{version}
 
 %changelog
+* Tue Feb 15 2022 Louis Abel <tucklesepk@gmail.com> - 0.1.20220213-1
+- Update to alpha release 0.1.20220213
+
 * Mon Oct 25 2021 Louis Abel <tucklesepk@gmail.com> - 0.1.20210801-3
 - Update to release 0.1.20210801
 
