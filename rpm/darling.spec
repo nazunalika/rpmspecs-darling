@@ -153,7 +153,7 @@ fi
 %defattr(-, root, root, -)
 #%doc LICENSE
 %{_bindir}/darling
-%{_libexecdir}/darling
+%dir %{_libexecdir}/darling
 
 %files mach
 %defattr(-, root, root, -)
