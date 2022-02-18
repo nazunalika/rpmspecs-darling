@@ -135,8 +135,8 @@ sed 's|@@PACKAGE_VERSION@@|%{version}|' %{SOURCE1} > dkms.conf
 %{__install} -m 644 dkms.conf \
   ${RPM_BUILD_ROOT}%{_usrsrc}/%{name}-mach-%{version}/dkms.conf
 
-cp ${RPM_BUILD_ROOT}/libexec/darling/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config/libpython2.7.{a,dylib} \
-  ${RPM_BUILD_ROOT}/%{_libexecdir}/darling/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config
+#cp ${RPM_BUILD_ROOT}/libexec/darling/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config/libpython2.7.{a,dylib} \
+#  ${RPM_BUILD_ROOT}/%{_libexecdir}/darling/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/config
 
 %pre mach
 numbersOf=$(%{_sbindir}/dkms status "%{name}/%{version}" | wc -l)
